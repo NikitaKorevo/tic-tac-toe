@@ -1,37 +1,34 @@
 class TicTacToe {
     constructor() {
         this.state = {
-            doesXgo: true,
-            /* arrTurn: [
-                ['','',''],
-                ['','',''],
-                ['','','']
-            ], */
             arrTurn: [
                 [null, null, null],
                 [null, null, null],
                 [null, null, null]
             ],
             whoWinner : null,
-            isDraw: false
+            isDraw: false,
+            whoGo: 'x'
         }
     }
 
     getCurrentPlayerSymbol() {
-        if (this.state.doesXgo) {
-            this.state.doesXgo = false;
-            return 'x';
-        } else {
-            this.state.doesXgo = true;
-            return 'o';
-        }
+        return this.state.whoGo;
     }
 
     nextTurn(rowIndex, columnIndex) {
         // меняет state в конструкторе (изменить игрока, обновить хранилище меток и тд)
+        let whoGo;
+        
         if (this.state.arrTurn[rowIndex][columnIndex] !== null) return;
+        if (this.state.whoGo === 'x') {
+            whoGo = 'x';
+            this.state.whoGo = 'o';
+        } else {
+            whoGo = 'o';
+            this.state.whoGo = 'x';
+        }
 
-        let whoGo = this.getCurrentPlayerSymbol();
         this.state.arrTurn[rowIndex][columnIndex] = whoGo;
         this.isFinished();
     }
